@@ -5,157 +5,240 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Minahil Khan | Portfolio</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
+
+:root{
+  --bg:#061a1a;
+  --bg2:#0a2626;
+  --card:rgba(255,255,255,0.06);
+  --border:rgba(45,212,191,0.25);
+
+  --accent:#2dd4bf;
+  --accent2:#14b8a6;
+  --soft:#99f6e4;
+
+  --text:#eaffff;
+  --muted:#93bdbd;
+}
+
 body{
   font-family:'Plus Jakarta Sans',sans-serif;
-  background:#070A1A;
-  color:#fff;
-  overflow-x:hidden;
+  background:var(--bg);
+  color:var(--text);
 }
 
-/* ───── COLORS ───── */
-:root{
-  --bg1:#070A1A;
-  --bg2:#0C1029;
-  --card:rgba(255,255,255,0.05);
-  --border:rgba(0,255,255,0.15);
-  --accent:#7C3AED;
-  --accent2:#22D3EE;
-  --text:#EDE9FE;
-  --muted:#A5B4FC;
-}
-
-/* ───── NAV ───── */
+/* NAV */
 nav{
-  position:fixed;top:0;left:0;right:0;
-  display:flex;justify-content:space-between;
+  position:fixed;
+  top:0;left:0;right:0;
+  display:flex;
+  justify-content:space-between;
   padding:1rem 3rem;
-  backdrop-filter:blur(12px);
-  background:rgba(0,0,0,0.4);
-  z-index:100;
+  backdrop-filter:blur(15px);
+  background:rgba(6,26,26,0.7);
+  z-index:1000;
   border-bottom:1px solid var(--border);
 }
-nav .logo{
-  font-weight:700;
-  letter-spacing:1px;
-  color:var(--accent2);
-}
-nav a{
-  margin-left:25px;
-  text-decoration:none;
-  color:var(--muted);
-  font-size:12px;
-  text-transform:uppercase;
-}
-nav a:hover{color:var(--accent2);}
 
-/* ───── HERO ───── */
+.logo{
+  font-family:'Playfair Display',serif;
+  color:var(--soft);
+  font-size:1.4rem;
+}
+
+.links{
+  display:flex;
+  gap:2rem;
+}
+.links a{
+  color:var(--muted);
+  text-decoration:none;
+  font-size:12px;
+  letter-spacing:2px;
+  transition:.3s;
+}
+.links a:hover{
+  color:var(--accent);
+}
+
+/* HERO */
 #hero{
   min-height:100vh;
   display:flex;
   align-items:center;
-  justify-content:center;
-  padding:100px 40px;
-  background:radial-gradient(circle at top,#1a1446,#070A1A);
+  padding:8rem 3rem;
+  position:relative;
+  overflow:hidden;
 }
-.hero-box{
-  text-align:center;
-  max-width:800px;
+
+/* glow background */
+#hero::before{
+  content:'';
+  position:absolute;
+  width:500px;height:500px;
+  background:radial-gradient(circle,var(--accent),transparent 60%);
+  top:-100px;right:-100px;
+  opacity:.2;
+  filter:blur(40px);
 }
-.hero-box h1{
-  font-size:4rem;
-  background:linear-gradient(90deg,var(--accent),var(--accent2));
-  -webkit-background-clip:text;
-  color:transparent;
+
+.hero-name{
+  font-family:'Playfair Display',serif;
+  font-size:4.5rem;
+  line-height:1.1;
 }
-.hero-box p{
-  margin-top:15px;
+
+.hero-name em{
+  color:var(--soft);
+}
+
+.hero-role{
+  margin-top:10px;
   color:var(--muted);
-  line-height:1.7;
 }
-.btn{
+
+.hero-desc{
+  margin-top:15px;
+  max-width:500px;
+  color:#b7d9d9;
+  line-height:1.8;
+}
+
+/* buttons */
+.btns{
   margin-top:25px;
-  display:inline-block;
-  padding:12px 28px;
-  border-radius:30px;
-  background:linear-gradient(90deg,var(--accent),var(--accent2));
-  color:white;
-  text-decoration:none;
+  display:flex;
+  gap:1rem;
+}
+
+.btn{
+  padding:.8rem 1.5rem;
+  border-radius:12px;
+  font-size:12px;
   font-weight:600;
+  text-decoration:none;
+  transition:.3s;
 }
 
-/* ───── SECTIONS ───── */
+.btn-primary{
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#003333;
+}
+.btn-primary:hover{
+  transform:translateY(-4px);
+}
+
+.btn-outline{
+  border:1px solid var(--accent);
+  color:var(--accent);
+}
+.btn-outline:hover{
+  background:rgba(45,212,191,0.1);
+}
+
+/* SECTION */
 section{
-  padding:80px 10%;
-}
-.title{
-  font-size:2rem;
-  margin-bottom:20px;
-  color:var(--accent2);
+  padding:6rem 3rem;
 }
 
-/* ───── ABOUT ───── */
+.title{
+  font-family:'Playfair Display',serif;
+  font-size:2.6rem;
+  margin-bottom:2rem;
+}
+
+/* ABOUT */
+#about{
+  background:var(--bg2);
+}
+
+.about p{
+  margin-bottom:1rem;
+  color:#cfeeee;
+  line-height:1.9;
+}
+
+.about strong{
+  color:var(--accent);
+}
+
+/* EDUCATION CARD */
+.edu{
+  margin-top:2rem;
+  background:var(--card);
+  border:1px solid var(--border);
+  padding:1.5rem;
+  border-radius:16px;
+  transition:.3s;
+}
+.edu:hover{
+  transform:translateY(-5px);
+}
+
+.edu h3{
+  color:var(--soft);
+  margin-bottom:5px;
+}
+
+/* SKILLS */
+#skills{
+  background:var(--bg);
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:1rem;
+}
+
 .card{
   background:var(--card);
   border:1px solid var(--border);
-  padding:25px;
+  padding:1.5rem;
   border-radius:16px;
-  backdrop-filter:blur(10px);
-  line-height:1.8;
-  color:var(--text);
-}
-
-/* ───── GRID ───── */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:20px;
-}
-
-/* ───── SKILLS ───── */
-.skill{
-  padding:20px;
-  border-radius:14px;
-  background:rgba(255,255,255,0.04);
-  border:1px solid var(--border);
   text-align:center;
+  transition:.3s;
 }
-.skill i{
-  font-size:28px;
-  color:var(--accent2);
+.card:hover{
+  transform:translateY(-8px);
+  border-color:var(--accent);
+}
+
+.card i{
+  font-size:1.8rem;
+  color:var(--soft);
   margin-bottom:10px;
 }
 
-/* ───── PROJECTS ───── */
-.project{
-  padding:20px;
-  border-radius:16px;
-  background:rgba(255,255,255,0.04);
-  border:1px solid var(--border);
-}
-.project h3{
-  color:var(--accent2);
+/* CONTACT */
+#contact{
+  background:var(--bg2);
 }
 
-/* ───── CONTACT ───── */
-.contact a{
-  display:block;
-  color:var(--muted);
-  margin:10px 0;
-  text-decoration:none;
+.contact-box{
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  padding:2rem;
+  border-radius:18px;
+  color:#003333;
+  box-shadow:0 10px 30px rgba(0,0,0,0.3);
 }
-.contact a:hover{color:var(--accent2);}
 
-footer{
-  text-align:center;
-  padding:30px;
-  color:var(--muted);
-  border-top:1px solid var(--border);
+.contact-box p{
+  margin-bottom:10px;
+  font-weight:600;
+}
+
+/* responsive */
+@media(max-width:768px){
+  .hero-name{font-size:3rem;}
+  nav{padding:1rem;}
+  section{padding:4rem 1.5rem;}
+  .links{display:none;}
 }
 </style>
 </head>
@@ -164,87 +247,75 @@ footer{
 
 <nav>
   <div class="logo">Minahil Khan</div>
-  <div>
+  <div class="links">
     <a href="#about">About</a>
     <a href="#skills">Skills</a>
-    <a href="#projects">Projects</a>
     <a href="#contact">Contact</a>
   </div>
 </nav>
 
 <!-- HERO -->
 <section id="hero">
-  <div class="hero-box">
-    <h1>Minahil Khan</h1>
-    <p>Computer Science Student | Fatima Jinnah Women University<br>
-    Passionate about coding, problem solving, and building real-world systems.</p>
-    <a class="btn" href="#projects">View My Work</a>
+  <div>
+    <h1 class="hero-name">Hello, I'm<br><em>Minahil Khan</em></h1>
+    <p class="hero-role">Computer Science Student • 4th Semester</p>
+    <p class="hero-desc">
+      Passionate CS student at Fatima Jinnah Women University. I enjoy coding, problem solving, and building logical systems using data structures and algorithms.
+    </p>
+
+    <div class="btns">
+      <a href="#skills" class="btn btn-primary">View Skills</a>
+      <a href="#contact" class="btn btn-outline">Contact Me</a>
+    </div>
   </div>
 </section>
 
 <!-- ABOUT -->
 <section id="about">
   <h2 class="title">About Me</h2>
-  <div class="card">
-    I am a 4th semester Computer Science student at Fatima Jinnah Women University.  
-    I have a background in Pre-Engineering and strong interest in software development, databases, and algorithms.  
-    I enjoy building projects using C++, Java, Python, SQL, and web technologies.
+
+  <div class="about">
+    <p>
+      I am a Computer Science student at <strong>Fatima Jinnah Women University</strong>, currently in my 4th semester.
+    </p>
+    <p>
+      I love solving real-world problems using programming, algorithms, and data structures.
+    </p>
+    <p>
+      My goal is to become a skilled software engineer and continuously grow in modern technologies.
+    </p>
+  </div>
+
+  <div class="edu">
+    <h3>BCS – Computer Science</h3>
+    <p>Fatima Jinnah Women University, Rawalpindi</p>
   </div>
 </section>
 
 <!-- SKILLS -->
 <section id="skills">
   <h2 class="title">Skills</h2>
+
   <div class="grid">
-    <div class="skill"><i class="fas fa-code"></i><p>C++ / C</p></div>
-    <div class="skill"><i class="fab fa-java"></i><p>Java</p></div>
-    <div class="skill"><i class="fab fa-python"></i><p>Python</p></div>
-    <div class="skill"><i class="fas fa-database"></i><p>SQL</p></div>
-    <div class="skill"><i class="fab fa-html5"></i><p>HTML / CSS</p></div>
-  </div>
-</section>
-
-<!-- PROJECTS -->
-<section id="projects">
-  <h2 class="title">Projects</h2>
-  <div class="grid">
-
-    <div class="project">
-      <h3>Expression Evaluator</h3>
-      <p>Stack-based infix, postfix converter in C++.</p>
-    </div>
-
-    <div class="project">
-      <h3>Customer Queue System</h3>
-      <p>Queue implementation for service management.</p>
-    </div>
-
-    <div class="project">
-      <h3>Student Record System</h3>
-      <p>Linked list based CRUD system in C++.</p>
-    </div>
-
-    <div class="project">
-      <h3>SQL Database Projects</h3>
-      <p>HR schema and relational database design.</p>
-    </div>
-
+    <div class="card"><i class="fas fa-code"></i><p>C / C++</p></div>
+    <div class="card"><i class="fab fa-java"></i><p>Java</p></div>
+    <div class="card"><i class="fab fa-python"></i><p>Python</p></div>
+    <div class="card"><i class="fas fa-database"></i><p>SQL</p></div>
+    <div class="card"><i class="fas fa-project-diagram"></i><p>DSA</p></div>
+    <div class="card"><i class="fab fa-html5"></i><p>HTML / CSS</p></div>
   </div>
 </section>
 
 <!-- CONTACT -->
 <section id="contact">
   <h2 class="title">Contact</h2>
-  <div class="card contact">
-    <a href="mailto:yourmail@gmail.com">📧 Email</a>
-    <a href="https://github.com/">🐙 GitHub</a>
-    <a href="https://linkedin.com/">💼 LinkedIn</a>
+
+  <div class="contact-box">
+    <p>Email: your-email@example.com</p>
+    <p>GitHub: your-github</p>
+    <p>Location: Gujar Khan, Punjab</p>
   </div>
 </section>
-
-<footer>
-  © 2026 Minahil Khan | Built with HTML & CSS
-</footer>
 
 </body>
 </html>
