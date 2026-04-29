@@ -5,253 +5,246 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Minahil Khan | Portfolio</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-
-:root{
-  /* NEW MODERN TEAL THEME */
-  --dark:#071a1a;
-  --dark2:#0b2424;
-  --light:#f6fffd;
-  --light2:#e9f7f5;
-
-  --text:#eaffff;
-  --muted:#87a7a7;
-
-  --accent:#2dd4bf;
-  --accent2:#14b8a6;
-  --soft:#99f6e4;
-
-  --card:rgba(255,255,255,0.05);
-  --border:rgba(45,212,191,0.18);
-}
-
 body{
   font-family:'Plus Jakarta Sans',sans-serif;
+  background:#070A1A;
+  color:#fff;
   overflow-x:hidden;
 }
 
-/* NAV */
+/* ───── COLORS ───── */
+:root{
+  --bg1:#070A1A;
+  --bg2:#0C1029;
+  --card:rgba(255,255,255,0.05);
+  --border:rgba(0,255,255,0.15);
+  --accent:#7C3AED;
+  --accent2:#22D3EE;
+  --text:#EDE9FE;
+  --muted:#A5B4FC;
+}
+
+/* ───── NAV ───── */
 nav{
   position:fixed;top:0;left:0;right:0;
   display:flex;justify-content:space-between;
   padding:1rem 3rem;
-  z-index:300;
+  backdrop-filter:blur(12px);
+  background:rgba(0,0,0,0.4);
+  z-index:100;
+  border-bottom:1px solid var(--border);
 }
-nav.is-dark{background:rgba(7,26,26,0.9);backdrop-filter:blur(18px);}
-nav.is-light{background:rgba(246,255,253,0.9);backdrop-filter:blur(18px);}
-
-.logo{
-  font-family:'Playfair Display',serif;
-  font-size:1.4rem;
+nav .logo{
+  font-weight:700;
+  letter-spacing:1px;
+  color:var(--accent2);
 }
-nav.is-dark .logo{color:var(--soft);}
-nav.is-light .logo{color:var(--accent2);}
-
-.links{display:flex;gap:2rem;}
-.links a{
+nav a{
+  margin-left:25px;
   text-decoration:none;
+  color:var(--muted);
   font-size:12px;
-  letter-spacing:1.5px;
   text-transform:uppercase;
-  font-weight:600;
 }
-nav.is-dark .links a{color:#9fd6d6;}
-nav.is-light .links a{color:#356b66;}
+nav a:hover{color:var(--accent2);}
 
-/* HERO */
+/* ───── HERO ───── */
 #hero{
   min-height:100vh;
-  background:var(--dark);
   display:flex;
   align-items:center;
-  padding:8rem 3rem;
-  position:relative;
+  justify-content:center;
+  padding:100px 40px;
+  background:radial-gradient(circle at top,#1a1446,#070A1A);
 }
-
-.hero-name{
-  font-family:'Playfair Display',serif;
-  font-size:4.5rem;
-  color:white;
+.hero-box{
+  text-align:center;
+  max-width:800px;
 }
-.hero-name em{color:var(--soft);}
-
-.hero-role{color:#9ad4d4;margin-top:10px;}
-.hero-desc{color:#a7c9c9;margin-top:15px;line-height:1.8;max-width:500px;}
-
+.hero-box h1{
+  font-size:4rem;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;
+  color:transparent;
+}
+.hero-box p{
+  margin-top:15px;
+  color:var(--muted);
+  line-height:1.7;
+}
 .btn{
-  padding:.8rem 1.6rem;
-  border-radius:10px;
+  margin-top:25px;
+  display:inline-block;
+  padding:12px 28px;
+  border-radius:30px;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  color:white;
   text-decoration:none;
   font-weight:600;
-  font-size:12px;
-}
-.btn-fill{
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  color:#002b2b;
-}
-.btn-line{
-  border:1px solid var(--accent);
-  color:var(--accent);
 }
 
-.hero-btns{display:flex;gap:1rem;margin-top:25px;}
-
-/* ABOUT */
-#about{background:var(--light);padding:6rem 3rem;}
-
-.sec-title{
-  font-size:2.8rem;
-  font-family:'Playfair Display',serif;
-  margin-bottom:2rem;
+/* ───── SECTIONS ───── */
+section{
+  padding:80px 10%;
+}
+.title{
+  font-size:2rem;
+  margin-bottom:20px;
+  color:var(--accent2);
 }
 
-.about-p{
-  line-height:1.9;
-  color:#2b3b3b;
-  margin-bottom:1rem;
-}
-
-.about-p strong{color:var(--accent2);}
-
-/* EDUCATION (left card upgraded) */
-.edu-card{
-  background:white;
-  padding:2rem;
-  border-radius:18px;
-  border-left:5px solid var(--accent);
-  box-shadow:0 10px 30px rgba(0,0,0,0.08);
-}
-
-.edu-name{font-weight:700;color:#0f2f2f;}
-.edu-info{font-size:13px;color:#3b5b5b;margin-top:5px;}
-
-/* SKILLS */
-#skills{
-  background:var(--dark2);
-  padding:6rem 3rem;
-}
-
-.skill-card{
+/* ───── ABOUT ───── */
+.card{
   background:var(--card);
   border:1px solid var(--border);
-  padding:1.5rem;
+  padding:25px;
   border-radius:16px;
-  text-align:center;
-  transition:.3s;
-}
-.skill-card:hover{
-  transform:translateY(-6px);
-  border-color:var(--accent);
+  backdrop-filter:blur(10px);
+  line-height:1.8;
+  color:var(--text);
 }
 
-.skill-card i{
-  font-size:1.6rem;
-  color:var(--soft);
+/* ───── GRID ───── */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+}
+
+/* ───── SKILLS ───── */
+.skill{
+  padding:20px;
+  border-radius:14px;
+  background:rgba(255,255,255,0.04);
+  border:1px solid var(--border);
+  text-align:center;
+}
+.skill i{
+  font-size:28px;
+  color:var(--accent2);
   margin-bottom:10px;
 }
 
-.skill-card p{color:#c7f9f3;font-weight:500;}
-
-.skill-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-  gap:1rem;
+/* ───── PROJECTS ───── */
+.project{
+  padding:20px;
+  border-radius:16px;
+  background:rgba(255,255,255,0.04);
+  border:1px solid var(--border);
+}
+.project h3{
+  color:var(--accent2);
 }
 
-/* CONTACT */
-#contact{background:var(--light);padding:6rem 3rem;}
-
-.contact-box{
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  padding:2rem;
-  border-radius:18px;
-  color:#003636;
+/* ───── CONTACT ───── */
+.contact a{
+  display:block;
+  color:var(--muted);
+  margin:10px 0;
+  text-decoration:none;
 }
+.contact a:hover{color:var(--accent2);}
 
+footer{
+  text-align:center;
+  padding:30px;
+  color:var(--muted);
+  border-top:1px solid var(--border);
+}
 </style>
 </head>
 
 <body>
 
-<nav class="is-dark" id="nav">
+<nav>
   <div class="logo">Minahil Khan</div>
-  <div class="links">
+  <div>
     <a href="#about">About</a>
     <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
     <a href="#contact">Contact</a>
   </div>
 </nav>
 
 <!-- HERO -->
 <section id="hero">
-  <div>
-    <h1 class="hero-name">Hello, I'm<br><em>Minahil Khan</em></h1>
-    <p class="hero-role">Computer Science Student (4th Semester)</p>
-    <p class="hero-desc">
-      Passionate CS student at Fatima Jinnah Women University.
-      I enjoy coding, exploring technology, and building logical solutions using programming and data structures.
-    </p>
-
-    <div class="hero-btns">
-      <a class="btn btn-fill" href="#skills">View Skills</a>
-      <a class="btn btn-line" href="#contact">Contact Me</a>
-    </div>
+  <div class="hero-box">
+    <h1>Minahil Khan</h1>
+    <p>Computer Science Student | Fatima Jinnah Women University<br>
+    Passionate about coding, problem solving, and building real-world systems.</p>
+    <a class="btn" href="#projects">View My Work</a>
   </div>
 </section>
 
 <!-- ABOUT -->
 <section id="about">
-  <h2 class="sec-title">About Me</h2>
-
-  <p class="about-p">
-    I am a Computer Science student currently in my 4th semester at
-    <strong>Fatima Jinnah Women University</strong>. I have a strong foundation in science and pre-engineering, which has shaped my analytical thinking.
-  </p>
-
-  <p class="about-p">
-    I am passionate about problem solving, algorithms, and software development.
-    I enjoy turning complex problems into simple and efficient code solutions.
-  </p>
-
-  <p class="about-p">
-    My goal is to grow as a software engineer and continuously improve my technical and practical skills.
-  </p>
-
-  <div class="edu-card">
-    <div class="edu-name">BCS – Computer Science</div>
-    <div class="edu-info">Fatima Jinnah Women University, Rawalpindi (4th Semester)</div>
+  <h2 class="title">About Me</h2>
+  <div class="card">
+    I am a 4th semester Computer Science student at Fatima Jinnah Women University.  
+    I have a background in Pre-Engineering and strong interest in software development, databases, and algorithms.  
+    I enjoy building projects using C++, Java, Python, SQL, and web technologies.
   </div>
 </section>
 
 <!-- SKILLS -->
 <section id="skills">
-  <h2 class="sec-title" style="color:white;">Skills & Technologies</h2>
+  <h2 class="title">Skills</h2>
+  <div class="grid">
+    <div class="skill"><i class="fas fa-code"></i><p>C++ / C</p></div>
+    <div class="skill"><i class="fab fa-java"></i><p>Java</p></div>
+    <div class="skill"><i class="fab fa-python"></i><p>Python</p></div>
+    <div class="skill"><i class="fas fa-database"></i><p>SQL</p></div>
+    <div class="skill"><i class="fab fa-html5"></i><p>HTML / CSS</p></div>
+  </div>
+</section>
 
-  <div class="skill-grid">
-    <div class="skill-card"><i class="fas fa-code"></i><p>C / C++</p></div>
-    <div class="skill-card"><i class="fab fa-java"></i><p>Java</p></div>
-    <div class="skill-card"><i class="fab fa-python"></i><p>Python</p></div>
-    <div class="skill-card"><i class="fab fa-html5"></i><p>HTML / CSS</p></div>
-    <div class="skill-card"><i class="fas fa-project-diagram"></i><p>DSA</p></div>
-    <div class="skill-card"><i class="fas fa-database"></i><p>SQL</p></div>
+<!-- PROJECTS -->
+<section id="projects">
+  <h2 class="title">Projects</h2>
+  <div class="grid">
+
+    <div class="project">
+      <h3>Expression Evaluator</h3>
+      <p>Stack-based infix, postfix converter in C++.</p>
+    </div>
+
+    <div class="project">
+      <h3>Customer Queue System</h3>
+      <p>Queue implementation for service management.</p>
+    </div>
+
+    <div class="project">
+      <h3>Student Record System</h3>
+      <p>Linked list based CRUD system in C++.</p>
+    </div>
+
+    <div class="project">
+      <h3>SQL Database Projects</h3>
+      <p>HR schema and relational database design.</p>
+    </div>
+
   </div>
 </section>
 
 <!-- CONTACT -->
 <section id="contact">
-  <h2 class="sec-title">Contact</h2>
-
-  <div class="contact-box">
-    <p><b>Email:</b> your-email@example.com</p>
-    <p><b>GitHub:</b> your-github</p>
-    <p><b>Location:</b> Gujar Khan, Punjab, Pakistan</p>
+  <h2 class="title">Contact</h2>
+  <div class="card contact">
+    <a href="mailto:yourmail@gmail.com">📧 Email</a>
+    <a href="https://github.com/">🐙 GitHub</a>
+    <a href="https://linkedin.com/">💼 LinkedIn</a>
   </div>
 </section>
+
+<footer>
+  © 2026 Minahil Khan | Built with HTML & CSS
+</footer>
 
 </body>
 </html>
