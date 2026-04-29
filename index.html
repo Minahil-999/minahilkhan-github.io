@@ -3,223 +3,157 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minahil Khan | Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>Minahil Khan | CS Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0b1120;
-            --card-bg: #1e293b;
-            --accent-color: #2dd4bf; /* Teal Accent */
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
+            --bg: #030712;
+            --glass: rgba(30, 41, 59, 0.7);
+            --accent: #2dd4bf; 
+            --accent-glow: rgba(45, 212, 191, 0.3);
+            --text-main: #f1f5f9;
+            --text-dim: #94a3b8;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
-            font-family: 'Inter', sans-serif; 
-            background-color: var(--bg-color); 
-            color: var(--text-primary);
-            line-height: 1.6;
-            scroll-behavior: smooth;
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background-color: var(--bg); 
+            color: var(--text-main);
+            overflow-x: hidden;
         }
 
-        /* Navigation */
+        /* Animated Background */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, #0f172a 0%, #030712 100%);
+            z-index: -1;
+        }
+
         nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 2rem 10%;
-            position: sticky;
-            top: 0;
-            background: rgba(11, 17, 32, 0.9);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1.5rem 8%; position: fixed; width: 100%; top: 0;
+            background: rgba(3, 7, 18, 0.8); backdrop-filter: blur(12px); z-index: 100;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
-        .logo { font-size: 1.5rem; font-weight: 700; color: var(--accent-color); }
-        .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            margin-left: 2rem;
-            transition: 0.3s;
-            font-size: 0.9rem;
-        }
-        .nav-links a:hover { color: var(--accent-color); }
+        .logo { font-weight: 800; font-size: 1.5rem; letter-spacing: -1px; color: var(--accent); }
+        .nav-links a { color: var(--text-dim); text-decoration: none; margin-left: 2rem; font-size: 0.9rem; transition: 0.3s; }
+        .nav-links a:hover { color: var(--accent); }
 
-        /* Hero Section */
         .hero {
-            height: 80vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
-            padding: 0 10%;
+            height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 0 10%;
+            background: radial-gradient(circle at 80% 20%, var(--accent-glow), transparent 25%);
         }
-        .badge {
-            background: rgba(45, 212, 191, 0.1);
-            color: var(--accent-color);
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            margin-bottom: 1rem;
-        }
-        h1 { font-size: 4rem; margin-bottom: 1rem; }
-        .hero span { color: var(--accent-color); }
-        .hero p { max-width: 600px; color: var(--text-secondary); margin-bottom: 2rem; }
+        .hero h1 { font-size: 4.5rem; line-height: 1.1; margin: 1rem 0; font-weight: 800; }
+        .hero span { background: linear-gradient(90deg, #2dd4bf, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        section { padding: 8rem 10% 4rem; }
+        h2 { font-size: 2.5rem; margin-bottom: 3rem; font-weight: 800; }
 
-        /* Sections General */
-        section { padding: 5rem 10%; }
-        h2 { font-size: 2rem; margin-bottom: 3rem; position: relative; }
-        h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 50px;
-            height: 3px;
-            background: var(--accent-color);
+        /* Stylish Skills Section */
+        .skills-container {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 1.5rem;
         }
-
-        /* About & Education Cards */
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-        .card {
-            background: var(--card-bg);
-            padding: 2rem;
-            border-radius: 12px;
+        .skill-card {
+            background: var(--glass);
+            padding: 1.5rem; border-radius: 16px; text-align: center;
             border: 1px solid rgba(255,255,255,0.05);
-            transition: 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative; overflow: hidden;
         }
-        .card:hover { transform: translateY(-5px); border-color: var(--accent-color); }
-        .card h3 { color: var(--accent-color); margin-bottom: 10px; }
+        .skill-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: 0 10px 30px -10px var(--accent-glow);
+        }
+        .skill-card i { font-size: 2rem; display: block; margin-bottom: 10px; }
 
-        /* Skills Tags */
-        .skills-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
+        /* Education & Projects Glass Cards */
+        .glass-card {
+            background: var(--glass);
+            padding: 2.5rem; border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            margin-bottom: 2rem;
         }
-        .skill-tag {
-            background: #334155;
-            padding: 8px 20px;
-            border-radius: 8px;
-            font-size: 0.9rem;
-        }
+        .edu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
 
-        /* Contact Section */
-        .contact-content {
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto;
+        .contact-box {
+            background: linear-gradient(135deg, var(--glass), rgba(45, 212, 191, 0.05));
+            padding: 4rem; border-radius: 30px; text-align: center; border: 1px solid var(--accent-glow);
         }
         .btn {
-            display: inline-block;
-            background: var(--accent-color);
-            color: var(--bg-color);
-            padding: 12px 30px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            margin-top: 20px;
+            background: var(--accent); color: var(--bg); padding: 1rem 2.5rem;
+            border-radius: 12px; text-decoration: none; font-weight: 700;
+            display: inline-block; transition: 0.3s; margin-top: 1rem;
         }
+        .btn:hover { transform: scale(1.05); box-shadow: 0 0 20px var(--accent-glow); }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="logo">MK.</div>
+        <div class="logo">MINAHIL.K</div>
         <div class="nav-links">
             <a href="#about">About</a>
             <a href="#skills">Skills</a>
             <a href="#education">Education</a>
-            <a href="#projects">Projects</a>
             <a href="#contact">Contact</a>
         </div>
     </nav>
 
     <section class="hero">
-        <div class="badge">COMPUTER SCIENCE STUDENT</div>
-        <h1>Hello, I'm <span>Minahil Khan</span></h1>
-        <p>A passionate 4th Semester CS student at Fatima Jinnah Women University. I bridge the gap between scientific logic and creative coding to build meaningful digital experiences.</p>
-        <a href="#projects" class="btn">View My Work</a>
-    </section>
-
-    <section id="about">
-        <h2>About Me</h2>
-        <div class="grid-container">
-            <div class="card">
-                <p>Coming from a background in Science and Pre-Engineering, I enjoy solving complex problems through code. When I'm not studying at FJWU, you'll find me reading or exploring the latest tech trends.</p>
-            </div>
-            <div class="card">
-                <h3>Interests</h3>
-                <p>Coding • Reading • Tech Exploration • Problem Solving</p>
-            </div>
+        <p style="color: var(--accent); letter-spacing: 2px; font-weight: 600;">PORTFOLIO 2026</p>
+        <h1>Minahil <span>Khan.</span></h1>
+        <p style="color: var(--text-dim); font-size: 1.2rem; max-width: 600px;">
+            Computer Science student at Fatima Jinnah Women University. Specialist in building logical, efficient, and visually compelling digital solutions.
+        </p>
+        <div>
+            <a href="#contact" class="btn">Let's Talk</a>
         </div>
     </section>
 
     <section id="skills">
-        <h2>Skills</h2>
-        <div class="skills-grid">
-            <div class="skill-tag">C++</div>
-            <div class="skill-tag">Python</div>
-            <div class="skill-tag">Java</div>
-            <div class="skill-tag">C</div>
-            <div class="skill-tag">SQL</div>
-            <div class="skill-tag">HTML/CSS</div>
-            <div class="skill-tag">DSA</div>
+        <h2>Technical Arsenal</h2>
+        <div class="skills-container">
+            <div class="skill-card"><h3>C++</h3><p>OOP</p></div>
+            <div class="skill-card"><h3>Python</h3><p>Scripting</p></div>
+            <div class="skill-card"><h3>Java</h3><p>Systems</p></div>
+            <div class="skill-card"><h3>SQL</h3><p>Database</p></div>
+            <div class="skill-card"><h3>HTML</h3><p>Design</p></div>
+            <div class="skill-card"><h3>CSS</h3><p>Styling</p></div>
+            <div class="skill-card"><h3>DSA</h3><p>Logic</p></div>
         </div>
     </section>
 
     <section id="education">
-        <h2>Education</h2>
-        <div class="grid-container">
-            <div class="card">
-                <h3>BS Computer Science</h3>
+        <h2>Academic Journey</h2>
+        <div class="edu-grid">
+            <div class="glass-card">
+                <h3 style="color: var(--accent);">BS Computer Science</h3>
                 <p>Fatima Jinnah Women University</p>
-                <p style="color: var(--text-secondary)">2024 - Present | 4th Semester</p>
+                <p style="color: var(--text-dim); margin-top: 10px;">2024 - Present • 4th Semester</p>
             </div>
-            <div class="card">
-                <h3>FSc Pre-Engineering</h3>
+            <div class="glass-card">
+                <h3 style="color: var(--accent);">FSc Pre-Engineering</h3>
                 <p>Intermediate Board</p>
-                <p style="color: var(--text-secondary)">Completed</p>
-            </div>
-            <div class="card">
-                <h3>Matric Science</h3>
-                <p>Secondary School</p>
-                <p style="color: var(--text-secondary)">Completed</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="projects">
-        <h2>Projects</h2>
-        <div class="grid-container">
-            <!-- Placeholder for Portfolio Website -->
-            <div class="card">
-                <h3>Portfolio Website</h3>
-                <p>A professional personal website built using HTML and CSS to showcase my academic journey and technical skills.</p>
-                <p style="font-size: 0.8rem; margin-top: 10px; color: var(--accent-color);">#WebDevelopment</p>
-            </div>
-            <!-- Empty state placeholders -->
-            <div class="card">
-                <h3>Coming Soon</h3>
-                <p>Working on something exciting! Stay tuned for my upcoming Python and C++ projects.</p>
+                <p style="color: var(--text-dim); margin-top: 10px;">Scientific Foundation</p>
             </div>
         </div>
     </section>
 
     <section id="contact">
-        <div class="contact-content">
-            <h2>Get In Touch</h2>
-            <p>I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions.</p>
-            <a href="mailto:your-email@gmail.com" class="btn">Send an Email</a>
+        <div class="contact-box">
+            <h2>Ready to Collaborate?</h2>
+            <p style="color: var(--text-dim); margin-bottom: 2rem;">I am currently looking for project opportunities and tech collaborations.</p>
+            <a href="mailto:your-email@gmail.com" class="btn">Reach Out via Email</a>
         </div>
     </section>
 
-    <footer style="text-align: center; padding: 2rem; color: var(--text-secondary); font-size: 0.8rem;">
-        &copy; 2026 Minahil Khan. All rights reserved.
+    <footer style="padding: 4rem 10%; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; color: var(--text-dim);">
+        <p>&copy; 2026 Minahil Khan • Built with Passion & Code</p>
     </footer>
 
 </body>
