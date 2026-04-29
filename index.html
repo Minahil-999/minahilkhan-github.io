@@ -1,201 +1,119 @@
-<!DOCTYPE html>
+import { motion } from "framer-motion";
+import { useState } from "react";
 
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Minahil Khan | Portfolio</title>
+export default function Portfolio() {
+  const [active, setActive] = useState("home");
 
-<style>
-body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #0f172a, #1e1b4b);
-    color: white;
-}
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-black text-white font-sans">
 
-/* NAV */
-nav {
-    display: flex;
-    justify-content: space-between;
-    padding: 20px 60px;
-    background: rgba(0,0,0,0.4);
-    backdrop-filter: blur(10px);
-    position: sticky;
-    top: 0;
-}
+      {/* Navbar */}
+      <nav className="fixed top-0 w-full flex justify-center gap-8 py-4 bg-black/50 backdrop-blur-md z-50">
+        {["home", "about", "skills", "projects", "contact"].map((item) => (
+          <button
+            key={item}
+            onClick={() => setActive(item)}
+            className={`capitalize transition hover:text-pink-400 ${active === item ? "text-pink-400" : "text-white/80"}`}
+          >
+            {item}
+          </button>
+        ))}
+      </nav>
 
-nav h2 {
-    color: #a78bfa;
-}
+      {/* Hero */}
+      <section className="h-screen flex flex-col justify-center items-center text-center px-6">
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-5xl md:text-7xl font-bold"
+        >
+          Hi, I'm <span className="text-pink-500">Minahil Khan</span>
+        </motion.h1>
+        <p className="mt-4 text-lg text-gray-300">
+          4th Semester Computer Science Student | Developer | Tech Explorer
+        </p>
+        <p className="text-gray-400 mt-2">
+          Fatima Jinnah Women University | Science & Pre-Engineering Background
+        </p>
+        <div className="mt-6 flex gap-4">
+          <button className="px-6 py-2 bg-pink-500 rounded-full hover:bg-pink-600 transition">
+            View Projects
+          </button>
+          <button className="px-6 py-2 border border-pink-500 rounded-full hover:bg-pink-500/20">
+            Contact Me
+          </button>
+        </div>
+      </section>
 
-nav a {
-    color: white;
-    margin-left: 20px;
-    text-decoration: none;
-    transition: 0.3s;
-}
+      {/* About */}
+      <section className="py-20 px-6 max-w-5xl mx-auto">
+        <h2 className="text-3xl font-bold text-pink-400 mb-6">About Me</h2>
+        <p className="text-gray-300 leading-relaxed">
+          I am a passionate Computer Science student currently in my 4th semester at Fatima Jinnah Women University.
+          I have a strong foundation in programming with experience in C++, Java, Python, SQL, HTML/CSS, and Data Structures & Algorithms.
+          I enjoy exploring new technologies, solving real-world problems, and building clean and user-friendly applications.
+        </p>
+      </section>
 
-nav a:hover {
-    color: #a78bfa;
-}
+      {/* Skills */}
+      <section className="py-20 px-6 bg-black/40">
+        <h2 className="text-3xl font-bold text-pink-400 mb-10 text-center">Skills</h2>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+          {["C++", "Java", "Python", "SQL", "HTML/CSS", "JavaScript", "DSA"].map((skill) => (
+            <div
+              key={skill}
+              className="bg-gray-800 p-4 rounded-xl text-center hover:scale-105 transition"
+            >
+              {skill}
+            </div>
+          ))}
+        </div>
+      </section>
 
-/* HERO */
-.hero {
-    text-align: center;
-    padding: 100px 20px;
-}
+      {/* Projects */}
+      <section className="py-20 px-6 max-w-6xl mx-auto">
+        <h2 className="text-3xl font-bold text-pink-400 mb-10 text-center">Projects</h2>
+        <div className="grid md:grid-cols-3 gap-6">
+          <div className="bg-gray-900 p-5 rounded-xl hover:shadow-pink-500/20 hover:shadow-lg transition">
+            <h3 className="text-xl font-semibold">Portfolio Website</h3>
+            <p className="text-gray-400 text-sm mt-2">
+              A personal responsive portfolio built using React and Tailwind CSS.
+            </p>
+          </div>
 
-.hero h1 {
-    font-size: 55px;
-    background: linear-gradient(to right, #a78bfa, #60a5fa);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
+          <div className="bg-gray-900 p-5 rounded-xl hover:shadow-pink-500/20 hover:shadow-lg transition">
+            <h3 className="text-xl font-semibold">Salary Prediction Model</h3>
+            <p className="text-gray-400 text-sm mt-2">
+              Machine learning model using Python to predict salaries based on experience and test scores.
+            </p>
+          </div>
 
-.hero p {
-    color: #cbd5e1;
-    font-size: 18px;
-}
+          <div className="bg-gray-900 p-5 rounded-xl hover:shadow-pink-500/20 hover:shadow-lg transition">
+            <h3 className="text-xl font-semibold">Course Projects</h3>
+            <p className="text-gray-400 text-sm mt-2">
+              Multiple academic projects in C++, Java, and Python focusing on DSA and OOP concepts.
+            </p>
+          </div>
+        </div>
+      </section>
 
-/* SECTION */
-section {
-    max-width: 1000px;
-    margin: auto;
-    padding: 60px 20px;
-}
+      {/* Contact */}
+      <section className="py-20 px-6 bg-black/40">
+        <h2 className="text-3xl font-bold text-pink-400 mb-6 text-center">Contact</h2>
+        <div className="max-w-md mx-auto space-y-4">
+          <input className="w-full p-3 rounded bg-gray-800" placeholder="Your Name" />
+          <input className="w-full p-3 rounded bg-gray-800" placeholder="Your Email" />
+          <textarea className="w-full p-3 rounded bg-gray-800" placeholder="Your Message" rows="4" />
+          <button className="w-full bg-pink-500 py-3 rounded hover:bg-pink-600">
+            Send Message
+          </button>
+        </div>
+      </section>
 
-h2 {
-    color: #a78bfa;
-    margin-bottom: 20px;
-}
-
-/* GLASS CARD */
-.card {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
-    padding: 20px;
-    border-radius: 15px;
-    margin-top: 15px;
-    transition: 0.4s;
-    backdrop-filter: blur(10px);
-}
-
-.card:hover {
-    transform: translateY(-8px);
-    background: rgba(255,255,255,0.1);
-}
-
-/* SKILLS */
-.skills span {
-    display: inline-block;
-    padding: 10px 15px;
-    margin: 5px;
-    border-radius: 20px;
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.1);
-    transition: 0.3s;
-}
-
-.skills span:hover {
-    background: #a78bfa;
-    color: black;
-}
-
-/* CONTACT */
-.contact {
-    text-align: center;
-}
-
-/* FOOTER */
-footer {
-    text-align: center;
-    padding: 20px;
-    background: rgba(0,0,0,0.4);
-    margin-top: 50px;
-}
-</style>
-
-</head>
-
-<body>
-
-<nav>
-    <h2>Minahil</h2>
-    <div>
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
+      {/* Footer */}
+      <footer className="text-center py-6 text-gray-500 text-sm">
+        © 2026 Minahil Khan | Built with React & Tailwind
+      </footer>
     </div>
-</nav>
-
-<div class="hero">
-    <h1>Minahil Khan</h1>
-    <p>CS Student | Developer | Tech Explorer</p>
-</div>
-
-<section id="about">
-    <h2>About Me</h2>
-    <div class="card">
-        I am a 4th semester Computer Science student at Fatima Jinnah Women University.
-        I have a background in science and pre-engineering and a strong passion for coding,
-        technology, and learning new skills in AI, software development, and data science.
-    </div>
-</section>
-
-<section>
-    <h2>Education</h2>
-    <div class="card">
-        BSCS (2024 - Present) — Fatima Jinnah Women University<br><br>
-        FSc Pre-Engineering — Intermediate Board<br><br>
-        Matric (Science) — Secondary School
-    </div>
-</section>
-
-<section id="skills">
-    <h2>Skills</h2>
-    <div class="skills">
-        <span>C++</span>
-        <span>C</span>
-        <span>Java</span>
-        <span>Python</span>
-        <span>SQL</span>
-        <span>HTML/CSS</span>
-        <span>DSA</span>
-    </div>
-</section>
-
-<section id="projects">
-    <h2>Projects</h2>
-
-```
-<div class="card">
-    🚧 Salary Prediction Model (Coming Soon)
-</div>
-
-<div class="card">
-    🚧 SJF Scheduling Algorithm (C++)
-</div>
-
-<div class="card">
-    🚧 IoT Smart System (Arduino)
-</div>
-```
-
-</section>
-
-<section id="contact" class="contact">
-    <h2>Contact</h2>
-    <div class="card">
-        Email: your-email@example.com <br>
-        GitHub: https://github.com/yourusername
-    </div>
-</section>
-
-<footer>
-    © 2026 Minahil Khan | Built with ❤️
-</footer>
-
-</body>
-</html>
+  );
+}
