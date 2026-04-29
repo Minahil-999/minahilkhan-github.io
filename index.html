@@ -1,160 +1,201 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minahil Khan | CS Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg: #030712;
-            --glass: rgba(30, 41, 59, 0.7);
-            --accent: #2dd4bf; 
-            --accent-glow: rgba(45, 212, 191, 0.3);
-            --text-main: #f1f5f9;
-            --text-dim: #94a3b8;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minahil Khan | Portfolio</title>
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            background-color: var(--bg); 
-            color: var(--text-main);
-            overflow-x: hidden;
-        }
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #0f172a, #1e1b4b);
+    color: white;
+}
 
-        /* Animated Background */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% 50%, #0f172a 0%, #030712 100%);
-            z-index: -1;
-        }
+/* NAV */
+nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 60px;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+}
 
-        nav {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 1.5rem 8%; position: fixed; width: 100%; top: 0;
-            background: rgba(3, 7, 18, 0.8); backdrop-filter: blur(12px); z-index: 100;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-        .logo { font-weight: 800; font-size: 1.5rem; letter-spacing: -1px; color: var(--accent); }
-        .nav-links a { color: var(--text-dim); text-decoration: none; margin-left: 2rem; font-size: 0.9rem; transition: 0.3s; }
-        .nav-links a:hover { color: var(--accent); }
+nav h2 {
+    color: #a78bfa;
+}
 
-        .hero {
-            height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 0 10%;
-            background: radial-gradient(circle at 80% 20%, var(--accent-glow), transparent 25%);
-        }
-        .hero h1 { font-size: 4.5rem; line-height: 1.1; margin: 1rem 0; font-weight: 800; }
-        .hero span { background: linear-gradient(90deg, #2dd4bf, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        
-        section { padding: 8rem 10% 4rem; }
-        h2 { font-size: 2.5rem; margin-bottom: 3rem; font-weight: 800; }
+nav a {
+    color: white;
+    margin-left: 20px;
+    text-decoration: none;
+    transition: 0.3s;
+}
 
-        /* Stylish Skills Section */
-        .skills-container {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 1.5rem;
-        }
-        .skill-card {
-            background: var(--glass);
-            padding: 1.5rem; border-radius: 16px; text-align: center;
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative; overflow: hidden;
-        }
-        .skill-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--accent);
-            box-shadow: 0 10px 30px -10px var(--accent-glow);
-        }
-        .skill-card i { font-size: 2rem; display: block; margin-bottom: 10px; }
+nav a:hover {
+    color: #a78bfa;
+}
 
-        /* Education & Projects Glass Cards */
-        .glass-card {
-            background: var(--glass);
-            padding: 2.5rem; border-radius: 24px;
-            border: 1px solid rgba(255,255,255,0.05);
-            backdrop-filter: blur(10px);
-            margin-bottom: 2rem;
-        }
-        .edu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+/* HERO */
+.hero {
+    text-align: center;
+    padding: 100px 20px;
+}
 
-        .contact-box {
-            background: linear-gradient(135deg, var(--glass), rgba(45, 212, 191, 0.05));
-            padding: 4rem; border-radius: 30px; text-align: center; border: 1px solid var(--accent-glow);
-        }
-        .btn {
-            background: var(--accent); color: var(--bg); padding: 1rem 2.5rem;
-            border-radius: 12px; text-decoration: none; font-weight: 700;
-            display: inline-block; transition: 0.3s; margin-top: 1rem;
-        }
-        .btn:hover { transform: scale(1.05); box-shadow: 0 0 20px var(--accent-glow); }
-    </style>
+.hero h1 {
+    font-size: 55px;
+    background: linear-gradient(to right, #a78bfa, #60a5fa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+    color: #cbd5e1;
+    font-size: 18px;
+}
+
+/* SECTION */
+section {
+    max-width: 1000px;
+    margin: auto;
+    padding: 60px 20px;
+}
+
+h2 {
+    color: #a78bfa;
+    margin-bottom: 20px;
+}
+
+/* GLASS CARD */
+.card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 20px;
+    border-radius: 15px;
+    margin-top: 15px;
+    transition: 0.4s;
+    backdrop-filter: blur(10px);
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    background: rgba(255,255,255,0.1);
+}
+
+/* SKILLS */
+.skills span {
+    display: inline-block;
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: 0.3s;
+}
+
+.skills span:hover {
+    background: #a78bfa;
+    color: black;
+}
+
+/* CONTACT */
+.contact {
+    text-align: center;
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 20px;
+    background: rgba(0,0,0,0.4);
+    margin-top: 50px;
+}
+</style>
+
 </head>
+
 <body>
 
-    <nav>
-        <div class="logo">MINAHIL.K</div>
-        <div class="nav-links">
-            <a href="#about">About</a>
-            <a href="#skills">Skills</a>
-            <a href="#education">Education</a>
-            <a href="#contact">Contact</a>
-        </div>
-    </nav>
+<nav>
+    <h2>Minahil</h2>
+    <div>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+    </div>
+</nav>
 
-    <section class="hero">
-        <p style="color: var(--accent); letter-spacing: 2px; font-weight: 600;">PORTFOLIO 2026</p>
-        <h1>Minahil <span>Khan.</span></h1>
-        <p style="color: var(--text-dim); font-size: 1.2rem; max-width: 600px;">
-            Computer Science student at Fatima Jinnah Women University. Specialist in building logical, efficient, and visually compelling digital solutions.
-        </p>
-        <div>
-            <a href="#contact" class="btn">Let's Talk</a>
-        </div>
-    </section>
+<div class="hero">
+    <h1>Minahil Khan</h1>
+    <p>CS Student | Developer | Tech Explorer</p>
+</div>
 
-    <section id="skills">
-        <h2>Technical Arsenal</h2>
-        <div class="skills-container">
-            <div class="skill-card"><h3>C++</h3><p>OOP</p></div>
-            <div class="skill-card"><h3>Python</h3><p>Scripting</p></div>
-            <div class="skill-card"><h3>Java</h3><p>Systems</p></div>
-            <div class="skill-card"><h3>SQL</h3><p>Database</p></div>
-            <div class="skill-card"><h3>HTML</h3><p>Design</p></div>
-            <div class="skill-card"><h3>CSS</h3><p>Styling</p></div>
-            <div class="skill-card"><h3>DSA</h3><p>Logic</p></div>
-        </div>
-    </section>
+<section id="about">
+    <h2>About Me</h2>
+    <div class="card">
+        I am a 4th semester Computer Science student at Fatima Jinnah Women University.
+        I have a background in science and pre-engineering and a strong passion for coding,
+        technology, and learning new skills in AI, software development, and data science.
+    </div>
+</section>
 
-    <section id="education">
-        <h2>Academic Journey</h2>
-        <div class="edu-grid">
-            <div class="glass-card">
-                <h3 style="color: var(--accent);">BS Computer Science</h3>
-                <p>Fatima Jinnah Women University</p>
-                <p style="color: var(--text-dim); margin-top: 10px;">2024 - Present • 4th Semester</p>
-            </div>
-            <div class="glass-card">
-                <h3 style="color: var(--accent);">FSc Pre-Engineering</h3>
-                <p>Intermediate Board</p>
-                <p style="color: var(--text-dim); margin-top: 10px;">Scientific Foundation</p>
-            </div>
-        </div>
-    </section>
+<section>
+    <h2>Education</h2>
+    <div class="card">
+        BSCS (2024 - Present) — Fatima Jinnah Women University<br><br>
+        FSc Pre-Engineering — Intermediate Board<br><br>
+        Matric (Science) — Secondary School
+    </div>
+</section>
 
-    <section id="contact">
-        <div class="contact-box">
-            <h2>Ready to Collaborate?</h2>
-            <p style="color: var(--text-dim); margin-bottom: 2rem;">I am currently looking for project opportunities and tech collaborations.</p>
-            <a href="mailto:your-email@gmail.com" class="btn">Reach Out via Email</a>
-        </div>
-    </section>
+<section id="skills">
+    <h2>Skills</h2>
+    <div class="skills">
+        <span>C++</span>
+        <span>C</span>
+        <span>Java</span>
+        <span>Python</span>
+        <span>SQL</span>
+        <span>HTML/CSS</span>
+        <span>DSA</span>
+    </div>
+</section>
 
-    <footer style="padding: 4rem 10%; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; color: var(--text-dim);">
-        <p>&copy; 2026 Minahil Khan • Built with Passion & Code</p>
-    </footer>
+<section id="projects">
+    <h2>Projects</h2>
+
+```
+<div class="card">
+    🚧 Salary Prediction Model (Coming Soon)
+</div>
+
+<div class="card">
+    🚧 SJF Scheduling Algorithm (C++)
+</div>
+
+<div class="card">
+    🚧 IoT Smart System (Arduino)
+</div>
+```
+
+</section>
+
+<section id="contact" class="contact">
+    <h2>Contact</h2>
+    <div class="card">
+        Email: your-email@example.com <br>
+        GitHub: https://github.com/yourusername
+    </div>
+</section>
+
+<footer>
+    © 2026 Minahil Khan | Built with ❤️
+</footer>
 
 </body>
 </html>
