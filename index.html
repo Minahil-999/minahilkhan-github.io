@@ -1,1 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Minahil Khan | CS Student & Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --card: #1a1a26;
+    --border: #2a2a3a;
+    --accent: #c084fc;
+    --accent2: #818cf8;
+    --accent3: #34d399;
+    --text: #f0f0f8;
+    --muted: #8888aa;
+    --highlight: #c084fc22;
+  }
 
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    position: fixed;
+    left: 0; top: 0;
+    width: 72px;
+    height: 100vh;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 28px 0;
+    gap: 6px;
+    z-index: 100;
+  }
+
+  .sidebar-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--accent);
+    letter-spacing: -1px;
+    margin-bottom: 24px;
+  }
+
+  .nav-item {
+    width: 44px; height: 44px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 12px;
+    cursor: pointer;
+    color: var(--muted);
+    font-size: 1.1rem;
+    transition: all 0.2s;
+    text-decoration: none;
+    position: relative;
+  }
+  .nav-item:hover, .nav-item.active {
+    background: var(--highlight);
+    color: var(--accent);
+  }
+  .nav-item .tooltip {
+    position: absolute;
+    left: 56px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 0.72rem;
+    padding: 4px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+    font-family: 'DM Mono', monospace;
+  }
+  .nav-item:hover .tooltip { opacity: 1; }
+
+  /* ── MAIN ── */
+  .main {
+    margin-left: 72px;
+  }
+
+  /* ── SECTION BASE ── */
+  section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 60px;
+    position: relative;
+  }
+
+  /* ── HERO ── */
+  #home {
+    background: radial-gradient(ellipse 80% 60% at 60% 40%, #1e0a3c 0%, var(--bg) 70%);
+    flex-direction: column;
+    text-align: center;
+    gap: 24px;
+  }
+
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 3px;
+    color: var(--accent);
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 8vw, 7rem);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -2px;
+    background: linear-gradient(135deg, #fff 30%, var(--accent) 70%, var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+
+  .hero-role {
+    font-size: 1.1rem;
+    color: var(--muted);
+    font-weight: 300;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s forwards;
+  }
+  .hero-role span { color: var(--accent3); font-weight: 500; }
+
+  .hero-desc {
+    max-width: 520px;
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--muted);
+    opacity: 0;
+    animation: fadeUp 0.8s 0.8s forwards;
+  }
+
+  .hero-cta {
+    display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s 1s forwards;
+  }
+
+  .btn-primary {
+    padding: 12px 28px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border: none;
+    border-radius: 100px;
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 24px #c084fc44;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px #c084fc66; }
+
+  .btn-outline {
+    padding: 12px 28px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+  .floating-badge {
+    position: absolute;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 10px 16px;
+    font-size: 0.78rem;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    animation: float 4s ease-in-out infinite;
+  }
+  .fb1 { top: 18%; right: 12%; animation-delay: 0s; }
+  .fb2 { bottom: 22%; left: 8%; animation-delay: 1.5s; }
+  .fb3 { top: 30%; left: 6%; animation-delay: 0.8s; }
+  .floating-badge span { color: var(--accent3); }
+
+  /* ── SECTION HEADER ── */
+  .section-inner { max-width: 900px; width: 100%; }
+
+  .section-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 3px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-tag::before {
+    content: '';
+    width: 28px; height: 1px;
+    background: var(--accent);
+    display: inline-block;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 40px;
+    letter-spacing: -1px;
+  }
+
+  /* ── ABOUT ── */
+  #about { background: var(--bg); }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .about-text p {
+    font-size: 1.05rem;
+    line-height: 1.9;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+  .about-text p strong { color: var(--text); }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px 20px;
+    text-align: center;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .stat-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem;
+    font-weight: 900;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-top: 6px;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 1px;
+  }
+
+  /* ── EDUCATION ── */
+  #education {
+    background: radial-gradient(ellipse 60% 50% at 30% 50%, #0d1a2e 0%, var(--bg) 70%);
+  }
+
+  .timeline { position: relative; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 20px; top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--accent), var(--accent2), transparent);
+  }
+
+  .timeline-item {
+    display: flex;
+    gap: 32px;
+    margin-bottom: 40px;
+    position: relative;
+  }
+
+  .timeline-dot {
+    width: 40px; height: 40px;
+    min-width: 40px;
+    border-radius: 50%;
+    background: var(--card);
+    border: 2px solid var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    z-index: 1;
+    box-shadow: 0 0 20px #c084fc44;
+  }
+
+  .timeline-content {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px 28px;
+    flex: 1;
+    transition: border-color 0.2s;
+  }
+  .timeline-content:hover { border-color: var(--accent); }
+
+  .timeline-period {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .timeline-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .timeline-sub {
+    font-size: 0.88rem;
+    color: var(--muted);
+  }
+
+  /* ── SKILLS ── */
+  #skills { background: var(--bg); }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  .skill-category {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 28px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .skill-category:hover { border-color: var(--accent); transform: translateY(-4px); }
+
+  .skill-cat-header {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 20px;
+  }
+  .skill-cat-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    background: var(--highlight);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+  }
+  .skill-cat-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .skill-tag {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 5px 14px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+    transition: all 0.2s;
+  }
+  .skill-tag:hover { border-color: var(--accent); color: var(--accent); background: var(--highlight); }
+
+  /* ── PROJECTS ── */
+  #projects {
+    background: radial-gradient(ellipse 60% 50% at 70% 50%, #0a1f2e 0%, var(--bg) 70%);
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  .project-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 28px;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .project-card:hover { transform: translateY(-6px); border-color: var(--accent); }
+  .project-card:hover::before { opacity: 1; }
+
+  .project-lang {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .project-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .project-desc {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+  .project-footer {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .project-icon {
+    font-size: 1.5rem;
+  }
+  .project-status {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--accent3);
+    background: #34d39920;
+    border: 1px solid #34d39940;
+    border-radius: 100px;
+    padding: 3px 10px;
+  }
+
+  /* ── HOBBIES ── */
+  #hobbies { background: var(--bg); }
+
+  .hobbies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+  }
+
+  .hobby-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px 24px;
+    text-align: center;
+    transition: all 0.3s;
+    cursor: default;
+  }
+  .hobby-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-6px);
+    background: linear-gradient(135deg, var(--card), #1e0a3c);
+  }
+  .hobby-icon {
+    font-size: 2.4rem;
+    margin-bottom: 14px;
+    display: block;
+  }
+  .hobby-name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .hobby-desc {
+    font-size: 0.78rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ── CONTACT ── */
+  #contact {
+    background: radial-gradient(ellipse 70% 60% at 50% 50%, #1e0a3c 0%, var(--bg) 70%);
+    flex-direction: column;
+    text-align: center;
+    gap: 0;
+  }
+
+  .contact-inner { max-width: 640px; }
+
+  .contact-subtitle {
+    font-size: 1.05rem;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 40px;
+  }
+
+  .contact-links {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .contact-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px 28px;
+    display: flex; align-items: center; gap: 14px;
+    text-decoration: none;
+    color: var(--text);
+    transition: all 0.2s;
+    min-width: 200px;
+  }
+  .contact-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+    background: linear-gradient(135deg, var(--card), #1e0a3c);
+  }
+  .contact-card-icon {
+    font-size: 1.4rem;
+    width: 44px; height: 44px;
+    background: var(--highlight);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .contact-card-label {
+    font-size: 0.7rem;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+  .contact-card-value {
+    font-size: 0.88rem;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 160px;
+  }
+
+  .footer {
+    margin-top: 60px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+  .footer span { color: var(--accent); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-10px); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .sidebar { display: none; }
+    .main { margin-left: 0; }
+    section { padding: 60px 24px; }
+    .about-grid { grid-template-columns: 1fr; gap: 36px; }
+    .floating-badge { display: none; }
+    .hero-name { font-size: clamp(2.4rem, 12vw, 4rem); }
+    .skills-grid, .projects-grid { grid-template-columns: 1fr; }
+
+    /* Mobile nav bar at bottom */
+    .mobile-nav {
+      display: flex;
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      justify-content: space-around;
+      padding: 12px 0;
+      z-index: 100;
+    }
+    .mobile-nav a {
+      color: var(--muted);
+      font-size: 1.2rem;
+      text-decoration: none;
+      padding: 6px;
+    }
+    body { padding-bottom: 60px; }
+  }
+
+  @media (min-width: 769px) {
+    .mobile-nav { display: none; }
+  }
+
+  /* scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="sidebar-logo">MK</div>
+  <a href="#home" class="nav-item active">🏠<span class="tooltip">Home</span></a>
+  <a href="#about" class="nav-item">👤<span class="tooltip">About</span></a>
+  <a href="#education" class="nav-item">🎓<span class="tooltip">Education</span></a>
+  <a href="#skills" class="nav-item">⚡<span class="tooltip">Skills</span></a>
+  <a href="#projects" class="nav-item">💻<span class="tooltip">Projects</span></a>
+  <a href="#hobbies" class="nav-item">🎯<span class="tooltip">Hobbies</span></a>
+  <a href="#contact" class="nav-item">✉️<span class="tooltip">Contact</span></a>
+</nav>
+
+<!-- MOBILE NAV -->
+<nav class="mobile-nav">
+  <a href="#home">🏠</a>
+  <a href="#about">👤</a>
+  <a href="#education">🎓</a>
+  <a href="#skills">⚡</a>
+  <a href="#projects">💻</a>
+  <a href="#hobbies">🎯</a>
+  <a href="#contact">✉️</a>
+</nav>
+
+<main class="main">
+
+  <!-- HERO -->
+  <section id="home">
+    <div class="floating-badge fb1">📍 <span>Rawalpindi, Pakistan</span></div>
+    <div class="floating-badge fb2">🎓 <span>4th Sem BSCS</span></div>
+    <div class="floating-badge fb3">⌨️ <span>CS Student</span></div>
+
+    <div class="hero-eyebrow">Welcome to my portfolio</div>
+    <h1 class="hero-name">Minahil Khan</h1>
+    <p class="hero-role">CS Student &nbsp;·&nbsp; Developer &nbsp;·&nbsp; <span>Tech Explorer</span></p>
+    <p class="hero-desc">
+      Passionate about turning ideas into elegant code. Currently pursuing BSCS at Fatima Jinnah Women University, building skills across multiple languages and technologies.
+    </p>
+    <div class="hero-cta">
+      <a href="#about" class="btn-primary">Get to Know Me</a>
+      <a href="#contact" class="btn-outline">Contact Me</a>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-inner">
+      <div class="section-tag">About Me</div>
+      <h2 class="section-title">Who I Am</h2>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>
+            Hi! I'm <strong>Minahil Khan</strong>, a dedicated Computer Science student at <strong>Fatima Jinnah Women University, Rawalpindi</strong>. Currently in my 4th semester, I'm passionate about software development, problem-solving, and exploring the ever-evolving world of technology.
+          </p>
+          <p>
+            With a strong foundation in <strong>Pre-Engineering sciences</strong>, I bring an analytical mindset to everything I build. I love writing clean, efficient code and am constantly expanding my skill set across multiple programming languages and technologies.
+          </p>
+          <p>
+            When I'm not coding, you'll find me reading, discovering new tech trends, or playing table tennis to keep things balanced! 🏓
+          </p>
+        </div>
+        <div class="about-stats">
+          <div class="stat-card">
+            <div class="stat-num">4th</div>
+            <div class="stat-label">Semester</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">7+</div>
+            <div class="stat-label">Languages Known</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">FJWU</div>
+            <div class="stat-label">University</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">∞</div>
+            <div class="stat-label">Curiosity</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="section-inner reveal">
+      <div class="section-tag">Education</div>
+      <h2 class="section-title">Academic Journey</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot">🎓</div>
+          <div class="timeline-content">
+            <div class="timeline-period">2024 — PRESENT</div>
+            <div class="timeline-title">BS Computer Science</div>
+            <div class="timeline-sub">Fatima Jinnah Women University, Rawalpindi · 4th Semester</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot">📘</div>
+          <div class="timeline-content">
+            <div class="timeline-period">Intermediate</div>
+            <div class="timeline-title">FSc Pre-Engineering</div>
+            <div class="timeline-sub">Intermediate Board · Physics, Chemistry, Mathematics</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot">📗</div>
+          <div class="timeline-content">
+            <div class="timeline-period">Matriculation</div>
+            <div class="timeline-title">SSC Science</div>
+            <div class="timeline-sub">Secondary School · Science Group</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-inner reveal">
+      <div class="section-tag">Skills</div>
+      <h2 class="section-title">Tech Stack</h2>
+      <div class="skills-grid">
+        <div class="skill-category">
+          <div class="skill-cat-header">
+            <div class="skill-cat-icon">🔧</div>
+            <div class="skill-cat-name">Systems & Core</div>
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag">C</span>
+            <span class="skill-tag">C++</span>
+          </div>
+        </div>
+        <div class="skill-category">
+          <div class="skill-cat-header">
+            <div class="skill-cat-icon">☕</div>
+            <div class="skill-cat-name">Object-Oriented</div>
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag">Java</span>
+            <span class="skill-tag">Python</span>
+          </div>
+        </div>
+        <div class="skill-category">
+          <div class="skill-cat-header">
+            <div class="skill-cat-icon">🌐</div>
+            <div class="skill-cat-name">Web Development</div>
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag">HTML5</span>
+            <span class="skill-tag">CSS3</span>
+          </div>
+        </div>
+        <div class="skill-category">
+          <div class="skill-cat-header">
+            <div class="skill-cat-icon">🗄️</div>
+            <div class="skill-cat-name">Database</div>
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag">SQL</span>
+            <span class="skill-tag">Queries</span>
+            <span class="skill-tag">Schema Design</span>
+          </div>
+        </div>
+        <div class="skill-category">
+          <div class="skill-cat-header">
+            <div class="skill-cat-icon">🧩</div>
+            <div class="skill-cat-name">CS Fundamentals</div>
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag">Data Structures</span>
+            <span class="skill-tag">Algorithms</span>
+            <span class="skill-tag">OOP</span>
+          </div>
+        </div>
+        <div class="skill-category">
+          <div class="skill-cat-header">
+            <div class="skill-cat-icon">🛠️</div>
+            <div class="skill-cat-name">Tools & Platforms</div>
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag">GitHub</span>
+            <span class="skill-tag">VS Code</span>
+            <span class="skill-tag">Git</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-inner reveal">
+      <div class="section-tag">Projects</div>
+      <h2 class="section-title">Things I've Built</h2>
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-lang">C++</div>
+          <div class="project-title">C++ Project</div>
+          <div class="project-desc">A project showcasing core C++ concepts including OOP, memory management, and algorithmic problem-solving.</div>
+          <div class="project-footer">
+            <span class="project-icon">⚙️</span>
+            <span class="project-status">Coming Soon</span>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-lang">Java</div>
+          <div class="project-title">Java Project</div>
+          <div class="project-desc">A Java application demonstrating object-oriented design principles and software engineering practices.</div>
+          <div class="project-footer">
+            <span class="project-icon">☕</span>
+            <span class="project-status">Coming Soon</span>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-lang">Python</div>
+          <div class="project-title">Python Project</div>
+          <div class="project-desc">A Python script or application leveraging the language's versatility for automation, data handling, or logic.</div>
+          <div class="project-footer">
+            <span class="project-icon">🐍</span>
+            <span class="project-status">Coming Soon</span>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-lang">SQL</div>
+          <div class="project-title">SQL Project</div>
+          <div class="project-desc">Database design and querying project covering schema creation, relationships, and complex SQL operations.</div>
+          <div class="project-footer">
+            <span class="project-icon">🗄️</span>
+            <span class="project-status">Coming Soon</span>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-lang">C</div>
+          <div class="project-title">C Project</div>
+          <div class="project-desc">Systems-level programming in C, focusing on pointers, structs, and low-level problem solving.</div>
+          <div class="project-footer">
+            <span class="project-icon">🔩</span>
+            <span class="project-status">Coming Soon</span>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-lang">HTML · CSS</div>
+          <div class="project-title">Portfolio Website</div>
+          <div class="project-desc">This very portfolio — a stylish, responsive personal website built with HTML & CSS to showcase my journey.</div>
+          <div class="project-footer">
+            <span class="project-icon">🌐</span>
+            <span class="project-status">Live ✦</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOBBIES -->
+  <section id="hobbies">
+    <div class="section-inner reveal">
+      <div class="section-tag">Hobbies</div>
+      <h2 class="section-title">Beyond the Code</h2>
+      <div class="hobbies-grid">
+        <div class="hobby-card">
+          <span class="hobby-icon">📚</span>
+          <div class="hobby-name">Reading</div>
+          <div class="hobby-desc">From tech books to fiction — always learning something new</div>
+        </div>
+        <div class="hobby-card">
+          <span class="hobby-icon">💻</span>
+          <div class="hobby-name">Coding</div>
+          <div class="hobby-desc">Building projects and solving problems for fun, not just class</div>
+        </div>
+        <div class="hobby-card">
+          <span class="hobby-icon">🔭</span>
+          <div class="hobby-name">Exploring Tech</div>
+          <div class="hobby-desc">Staying curious about the latest in AI, dev tools, and emerging tech</div>
+        </div>
+        <div class="hobby-card">
+          <span class="hobby-icon">🏓</span>
+          <div class="hobby-name">Table Tennis</div>
+          <div class="hobby-desc">Fast-paced, sharp reflexes — keeps me balanced and energised</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-inner reveal">
+      <div class="section-tag" style="justify-content:center;">Contact</div>
+      <h2 class="section-title">Let's Connect</h2>
+      <p class="contact-subtitle">
+        Whether it's a collaboration, opportunity, or just a hello — my inbox is always open. I'd love to hear from you!
+      </p>
+      <div class="contact-links">
+        <a href="mailto:minahilkhank999@gmail.com" class="contact-card">
+          <div class="contact-card-icon">✉️</div>
+          <div>
+            <div class="contact-card-label">Email</div>
+            <div class="contact-card-value">minahilkhank999@gmail.com</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/minahil-khan-6a97a4313" target="_blank" class="contact-card">
+          <div class="contact-card-icon">💼</div>
+          <div>
+            <div class="contact-card-label">LinkedIn</div>
+            <div class="contact-card-value">minahil-khan-6a97a4313</div>
+          </div>
+        </a>
+        <a href="#" class="contact-card" id="github-link">
+          <div class="contact-card-icon">🐙</div>
+          <div>
+            <div class="contact-card-label">GitHub</div>
+            <div class="contact-card-value">Coming Soon</div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="footer">
+      Designed & built with 💜 by <span>Minahil Khan</span> · 2025
+    </div>
+  </section>
+
+</main>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  reveals.forEach(r => observer.observe(r));
+
+  // Active nav highlight
+  const sections = document.querySelectorAll('section');
+  const navItems = document.querySelectorAll('.nav-item');
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navItems.forEach(n => n.classList.remove('active'));
+        const id = e.target.id;
+        const active = document.querySelector(`.nav-item[href="#${id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { threshold: 0.5 });
+  sections.forEach(s => sectionObserver.observe(s));
+</script>
+</body>
+</html>
